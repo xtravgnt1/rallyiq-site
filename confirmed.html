@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Email Confirmed — RallyIQ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0A0F1E; --gold: #C9A84C; --gold2: #E8C97A;
+      --text: #F0EDE6; --muted: #8A8A9A; --border: rgba(201,168,76,0.15);
+    }
+    body {
+      background: var(--navy); color: var(--text);
+      font-family: 'DM Sans', sans-serif; font-weight: 300;
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 48px 24px; text-align: center;
+    }
+    .eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; letter-spacing: 5px; color: var(--gold);
+      text-transform: uppercase; margin-bottom: 24px;
+      opacity: 0; animation: fadeUp 0.7s 0.1s forwards;
+    }
+    .check {
+      width: 64px; height: 64px; margin: 0 auto 32px;
+      border: 1.5px solid var(--gold); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; animation: fadeUp 0.7s 0.0s forwards;
+    }
+    .check svg { width: 28px; height: 28px; color: var(--gold); }
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(36px, 6vw, 56px); font-weight: 400;
+      margin-bottom: 20px; line-height: 1.1;
+      opacity: 0; animation: fadeUp 0.7s 0.2s forwards;
+    }
+    p {
+      font-size: 16px; color: var(--muted); max-width: 400px;
+      line-height: 1.7; margin-bottom: 40px;
+      opacity: 0; animation: fadeUp 0.7s 0.35s forwards;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--gold); color: var(--navy);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px; font-weight: 600;
+      padding: 14px 28px; border-radius: 6px;
+      text-decoration: none; transition: background 0.2s;
+      opacity: 0; animation: fadeUp 0.7s 0.45s forwards;
+    }
+    .btn:hover { background: var(--gold2); }
+    .footer-note {
+      margin-top: 56px; font-size: 11px; color: var(--muted);
+      letter-spacing: 0.5px;
+      opacity: 0; animation: fadeUp 0.7s 0.55s forwards;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="check">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+  </div>
+
+  <p class="eyebrow">RallyIQ</p>
+
+  <h1>Email confirmed.</h1>
+
+  <p>
+    Your account is ready. Open the RallyIQ app on your iPhone
+    to sign in and start your first analysis.
+  </p>
+
+  <a href="https://apps.apple.com/app/id6761423926" class="btn" target="_blank">
+    Open RallyIQ
+  </a>
+
+  <p class="footer-note">rallyiq.io &nbsp;·&nbsp; Made for club coaches</p>
+
+</body>
+</html>
