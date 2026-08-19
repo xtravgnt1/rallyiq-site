@@ -160,3 +160,46 @@ These can be updated freely:
 - Pricing (when finalized)
 - Feature bullet ordering within a card
 - Typography tweaks that stay within the palette
+
+---
+
+## Branch, review, THEN merge (adopted 2026-08-19, all of Chris's projects)
+
+Chris: *"instead of coding on main we use branches now… you use codex to review the
+code, once you and codex agree it passes then you merge it back to main and push it.
+That way code is reviewed as you write versus us having to go back."*
+
+**Where this came from:** on 2026-08-18 the OpenAI Codex plugin for Claude Code
+(`openai/codex-plugin-cc`, installed at user scope so it is available in every repo)
+reviewed one night's work in Vanity and found **nine real defects** — including a
+`security definer` Postgres function callable by anon off the publishable key, and a
+three-attempt retry that had never once fired because it wrapped `fetch()`, which
+resolves at the response headers rather than after the body. Every one of them was
+already deployed. The reviewing was not the problem; it was happening after the merge.
+
+**The loop, every time:**
+1. `git checkout -b <short-slug>` before touching code.
+2. Work and commit on the branch as normal.
+3. Review the branch: `/codex:review --base main --scope branch`, or from a script,
+   `node ~/.claude/plugins/cache/openai-codex/codex/<version>/scripts/codex-companion.mjs review --wait --base <merge-base> --scope branch`.
+   (Vanity wraps this as `npm run review`, which picks the base itself — worth copying
+   into any repo where Chris will run it himself. See `vanity/scripts/review.mjs`.)
+4. Fix the findings, then **review again**. Three of Vanity's nine findings were
+   defects in the fix for the previous finding; a fix written knowing about the bug is
+   not automatically clean.
+5. Merge to main and push once it passes. Delete the branch.
+
+**"Passes" is not "zero findings"** — it is nothing left unaddressed. Fix it, or write
+down why it was declined. Codex is a second opinion, not an authority: it has been
+wrong about severity, and complying with a wrong finding once meant adding a network
+call to an error handler whose premise was that the network had just failed.
+
+⚠️ **Branching isolates CODE, not data.** Schema changes and data repairs hit the live
+database whatever branch is checked out.
+
+⚠️ **Hotfix escape hatch:** if the app is broken for a real user right now, fix on main
+and review afterwards. The workflow protects them; it does not outrank them.
+
+Docs-only changes (progress logs, this file) do not need a branch — they cannot break
+the app, and ceremony paid on changes that cannot cause the failure it guards against
+is the kind of thing these files have had to strip out before.
